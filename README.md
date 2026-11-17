@@ -25,12 +25,13 @@ agenticsearch/
   site.js                   mobile navigation and scroll highlighting
   assets/                   locally hosted Montserrat fonts (licences included)
 .nojekyll                   serve files as-is, skip Jekyll processing
+starter-kit/                participant runtime, algorithms and installation guide
 ```
 
 All asset references are relative, so a challenge folder can be renamed, or
 moved to the domain root, without editing any HTML or CSS.
 
-No build step, no backend, no runtime third-party requests. Preview over HTTP:
+The website has no build step, backend or runtime third-party requests. The participant starter kit has its own Docker build instructions. Preview the website over HTTP:
 
 ```bash
 python -m http.server 8766 --bind 127.0.0.1
@@ -61,5 +62,7 @@ working unchanged.
 
 ## Scope
 
-This repository holds the public website only. Challenge data, private evaluation
-tasks, ground-truth trajectories and generation tooling are kept out of it.
+This repository contains the public website and the [participant starter kit](starter-kit/README.md).
+The starter kit README covers data downloads, Docker setup, algorithm development
+and submission files. Challenge data is distributed separately. Private evaluation
+tasks, ground-truth trajectories and generation tooling are kept out of this repository.

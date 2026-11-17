@@ -1,0 +1,6 @@
+# CPU baselines; participants may extend their own algorithm image dependencies.
+numpy==2.4.6
+rank-bm25==0.2.2
+onnxruntime==1.23.2
+tokenizers==0.23.3
+huggingface_hub==2.4.0

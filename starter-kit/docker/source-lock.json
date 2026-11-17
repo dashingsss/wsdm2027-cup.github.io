@@ -1,0 +1,40 @@
+{
+  "webshop": {
+    "url": "https://github.com/princeton-nlp/WebShop.git",
+    "commit": "64fa2a5c15c7daa698b9ac93f5bb5437b634c9bd",
+    "files": {
+      "web_agent_site/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "web_agent_site/app.py": "f9393af973fd2d0343c8b68e89572e6139ebc8d6a2309a145c554a80284e81cb",
+      "web_agent_site/attributes/annotate.py": "f64f3f8be3af15794821506014b97c1abc75424973ab9b06d4af4b9c2dec4a45",
+      "web_agent_site/attributes/generate_attrs.py": "b6e079d6765966e1c244e7de31d444c17423d912d24f0ef08844c32daa2efe3a",
+      "web_agent_site/engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "web_agent_site/engine/engine.py": "9b86ffc82951124f5c4a7eb8103de14100dbee11ba8869951ed6fb8feaeef804",
+      "web_agent_site/engine/goal.py": "9703c8583244e2041182eb14856186b998145ab16ce2ba9aef8cb680877c8ed5",
+      "web_agent_site/engine/normalize.py": "1962113ac9e209a636d4f181b2c70544bbea59b03adca9847e48287158d794fb",
+      "web_agent_site/envs/__init__.py": "47d3c98d0074e7ff7f3aa328978d75c62afbd7319bd932809c42f1fe03461c7f",
+      "web_agent_site/envs/chromedriver": "c77ad79a267a7a9f70514917a4f0c7c33860044ccbb0979027fecc91e1fc0c43",
+      "web_agent_site/envs/web_agent_site_env.py": "7b3a43c0250ef2215e2ac1e613ebafbcfbea053a24fcbb773541dc634f124981",
+      "web_agent_site/envs/web_agent_text_env.py": "97f338e08f34b809ed899cef3e29853def1620e10885ee0541766ff051788ca9",
+      "web_agent_site/models/__init__.py": "06a57f9b9ff18e749dff8b9bbb69cf78819a7515fb79a414ba2c3e2ee27ed626",
+      "web_agent_site/models/models.py": "229b2f2fb0feedcac84a8e7ed6484c976e4c0ccb026e22996052215c427445a7",
+      "web_agent_site/static/images/no-image-available.png": "ee79d06e254dcbcd3cc319b7e78993468c402af0234eeafbeb835a5fe0ce1b1b",
+      "web_agent_site/static/style.css": "61e4efb527c75e545d212ee2857c3df15da5880c022c22407e1807e3e2cdbb04",
+      "web_agent_site/templates/attributes_page.html": "f19f4e58656e3be297f9cc86b98cb04b571d84114114c07404f81e0079e3875f",
+      "web_agent_site/templates/description_page.html": "77bdb3e51c647a1b009f17ff5e40c7df62c2c8fb16c43cd0f84783e20f3b2a7a",
+      "web_agent_site/templates/done_page.html": "6da5b494522666f0644b948e5c2c5a0e5c5104926f3c643c7828ff653d5e8eb9",
+      "web_agent_site/templates/features_page.html": "d10df82cad8c34d698a8c1e267ffd97631fe4edfcc39a89ed187362573872ac0",
+      "web_agent_site/templates/item_page.html": "f6a11e5a3ffbada7cc5fbb26568ae971be84811d5d4f0d0a7043218a52906987",
+      "web_agent_site/templates/results_page.html": "4d448f7ee6c21f55bc4dfcf4952e37d3594f59996988c431d23db9cd38ea2777",
+      "web_agent_site/templates/review_page.html": "c1238f7ef89e186ec5817f04d6727c90ba1d41ad7481255e673920eb4804f464",
+      "web_agent_site/templates/search_page.html": "fb4cdae0b21f17a33ac56a47389e96595991838461502f2fad140ef53521a601",
+      "web_agent_site/utils.py": "bdd6df3b869cf3fe028169add3611d1b811ae663ae4f79520617c26b20614970"
+    }
+  },
+  "hotpotqa": {
+    "url": "https://github.com/hotpotqa/hotpot.git",
+    "commit": "3635853403a8735609ee997664e1528f4480762a",
+    "files": {
+      "hotpot_evaluate_v1.py": "d35fc91a6db21d791dbdda11daf3856e9359f5701d54e3eefba20d88fecc02c0"
+    }
+  }
+}

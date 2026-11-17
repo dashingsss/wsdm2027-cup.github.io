@@ -1,0 +1,82 @@
+services:
+  algorithm:
+    image: ${ALGORITHM_IMAGE:-agentic-algorithm:cpu}
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.algorithm
+    user: "10002:10002"
+    read_only: true
+    init: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    cpus: ${ALGORITHM_CPUS:-4}
+    mem_limit: ${ALGORITHM_MEMORY:-8g}
+    memswap_limit: ${ALGORITHM_MEMORY:-8g}
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=1073741824,mode=1777
+      - /cache:rw,nosuid,size=2147483648,mode=1777
+    environment:
+      ALGORITHM_CACHE: /cache
+    networks: [algorithm_link]
+    # No external DNS forwarding is needed by an offline responder.
+    dns: [127.0.0.1]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8765/health',data=b'{}'),timeout=3).read()"]
+      interval: 2s
+      timeout: 4s
+      retries: 30
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "2"}
+  official:
+    image: ${OFFICIAL_IMAGE:-agentic-official:cpu}
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.official
+    user: "10001:10001"
+    read_only: true
+    init: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    pids_limit: 512
+    tmpfs:
+      - /tmp:rw,exec,nosuid,size=4294967296,mode=1777
+    environment:
+      ALGORITHM_URL: http://algorithm:8765
+      ALGORITHM_IMAGE_ID: ${ALGORITHM_IMAGE_ID:-unverified}
+      ALGORITHM_CONTROL_DIR: /app/results/.control
+      OPENROUTER_API_KEY_FILE: /run/secrets/model_key
+    secrets: [model_key]
+    volumes:
+      - type: bind
+        source: ${PUBLIC_DATA:-../data}
+        target: /app/data
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${RUNTIME_RESOURCES:-../resources}
+        target: /app/resources
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${RUN_OUTPUT:-../results}
+        target: /app/results
+        bind: {create_host_path: false}
+    networks: [algorithm_link, model_access]
+    depends_on:
+      algorithm: {condition: service_healthy}
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "2"}
+networks:
+  algorithm_link:
+    internal: true
+  model_access: {}
+secrets:
+  model_key:
+    file: ${MODEL_KEY_FILE:-../.secrets/model_key}
