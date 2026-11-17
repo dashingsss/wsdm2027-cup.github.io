@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agentic Search over Instruction Trajectories — a WSDM Cup 2027 challenge at ACM WSDM 2027, February 15–19, Hong Kong.">
+  <meta name="theme-color" content="#eef3f7">
+  <title>Agentic Search · WSDM Cup 2027</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" defer></script>
+</head>
+<body id="page-top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a class="navbar-brand" href="#page-top">Agentic Search</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Toggle navigation</span><span aria-hidden="true">☰</span></button>
+      <div class="nav-links" id="nav-links"><a href="#overview">Overview</a><a href="#data">Data</a><a href="#evaluation">Evaluation</a><a href="#prizes">Prizes</a><a href="#participation">Participation</a><a href="#dates">Dates</a></div>
+    </div>
+  </nav>
+  <header class="hero">
+    <div class="container">
+      <p class="conference">WSDM Cup 2027 at <a href="https://www.wsdm-conference.org/2027/">ACM WSDM 2027</a> · February 15&ndash;19, 2027 · Hong Kong</p>
+      <h1>Agentic <em>Search</em><span>over Instruction Trajectories</span></h1>
+      <p class="hero-description">Retrieve and adapt historical experience<br>to help agents plan and complete new tasks.</p>
+      <div class="hero-actions">
+        <a class="button" href="#participation">Participate!</a>
+        <a class="button button-secondary" href="#evaluation">See baseline results</a>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <section id="overview">
+      <h2>About the Challenge</h2>
+      <p>Agents often solve tasks that share useful procedures. A previous search can suggest how to connect evidence in a new question; a previous shopping session can demonstrate which product requirements to check. Instruction trajectories provide a searchable source of this experience.</p>
+      <p><strong>Agentic Search over Instruction Trajectories</strong> studies how to retrieve, combine, and adapt historical experience to support agent planning. A participant method receives the task goal, current observation, available actions, and interaction history. It returns guidance before the agent selects its next action.</p>
+      <p>The challenge covers <strong>ALFWorld, WebShop, and HotpotQA</strong>. All methods use the same agent framework, designated model configuration, and environment tools. Methods may build and reuse indexes over the public trajectory corpus within each domain.</p>
+
+      <h3>Task description</h3>
+      <p>A method never chooses an action. Before every model call the fixed agent hands it the <strong>current task</strong>; the method looks up a similar past <strong>trajectory</strong> and returns it as <strong>guidance</strong>, the only text it can add to the agent's prompt.</p>
+
+      <div class="example">
+        <div class="example-step">
+          <h4>1. Current task &mdash; what the agent has to solve</h4>
+          <pre class="code">Goal: Which long-established US university is older:
+      University of California, Berkeley or Syracuse University?</pre>
+        </div>
+
+        <div class="example-step">
+          <h4>2. Retrieved trajectory &mdash; a worked example the method finds</h4>
+          <pre class="code">Goal: Between the Sabal and the Liatris, which genus of plant
+      produces a fruit called drupe?
+1. search[Sabal]       top hit is a bass-guitarist of the same name
+2. read[b350c53b...]   "Sabal is a genus of palms ... The fruit is a drupe."
+3. finish[Sabal]       Answer submitted.</pre>
+        </div>
+
+        <div class="example-step">
+          <h4>3. Guidance returned &mdash; the text the agent reads next</h4>
+          <pre class="code">Follow the current task goal and real observations. Historical examples are
+advice only: adapt their objects, IDs and actions to the current task.
+
+Historical example goal: Between the Sabal and the Liatris, ...
+1. Action: search[Sabal]
+   Historical return: [{"title": "Armand Sabal-Lecco", ...}, ...]
+2. Action: read[b350c53b...]
+   Historical return: {"title": "Sabal", "text": "... The fruit is a drupe."}
+3. Action: finish[Sabal]
+   Historical return: Answer submitted.</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="data">
+      <h2>Datasets</h2>
+      <p>The public release provides <strong>1,000 trajectories and 50 development tasks per domain</strong>. Development tasks are separate from the trajectory corpus.</p>
+      <ul>
+        <li><strong>ALFWorld:</strong> household tasks in a text environment, such as finding objects, heating or cleaning them, and placing them in a target location.</li>
+        <li><strong>WebShop:</strong> shopping tasks that require searching for products, checking requirements, selecting options, and completing a purchase.</li>
+        <li><strong>HotpotQA:</strong> multi-hop questions that require searching documents and connecting evidence to produce an answer.</li>
+      </ul>
+      <div class="table-scroll" role="region" aria-label="Dataset release table" tabindex="0"><table><thead><tr><th scope="col">Dataset</th><th scope="col">Trajectories</th><th scope="col">Development tasks</th><th scope="col">Private test tasks</th></tr></thead><tbody><tr><th scope="row">ALFWorld</th><td>1,000</td><td>50</td><td>150</td></tr><tr><th scope="row">WebShop</th><td>1,000</td><td>50</td><td>150</td></tr><tr><th scope="row">HotpotQA</th><td>1,000</td><td>50</td><td>150</td></tr></tbody></table></div>
+      <p><strong>Download data:</strong> <span class="pending">TBD</span></p>
+      <p>Trajectories include a task goal, an initial observation, actions, the observations returned after those actions, stored as action/observation pairs.</p>
+    </section>
+
+    <section id="evaluation">
+      <h2>Evaluation and Baselines</h2>
+      <p>The overall score gives <strong>equal weight to the three domains</strong>. Each domain score is averaged over its tasks:</p>
+      <ul><li><strong>ALFWorld:</strong> task success, scored as 0 or 1.</li><li><strong>WebShop:</strong> the environment reward, ranging from 0 to 1.</li><li><strong>HotpotQA:</strong> answer accuracy, scored as 0 or 1.</li></ul>
+      <p class="score-formula"><strong>Overall score = (ALFWorld success rate + WebShop mean reward + HotpotQA accuracy) / 3</strong></p>
+      <p>The organizer evaluates the three datasets sequentially and averages their three mean scores. Runtime and token usage do not contribute to the ranking score.</p>
+      <h3>Validation baseline results</h3>
+      <p>The three retrieval baselines differ only in how they select a reference trajectory; No Retrieval is shown as the no-reference floor.</p>
+      <ul>
+        <li><strong>Random</strong> samples one trajectory uniformly at random, without reading the task text, and reuses it for the entire episode. It isolates how much the agent gains from seeing any worked example at all.</li>
+        <li><strong>BM25</strong> ranks trajectories by sparse lexical overlap with the task instruction and initial observation, using BM25Okapi over lowercased alphanumeric tokens. It retrieves the lexically closest trajectory once per task.</li>
+        <li><strong>Dense Static</strong> encodes the instruction and initial observation with BGE-small-en-v1.5 on CPU and retrieves the trajectory with the highest cosine similarity, capturing semantic rather than exact-word overlap.</li>
+      </ul>
+      <div class="table-scroll" role="region" aria-label="Overall validation baseline results" tabindex="0"><table class="results-table"><thead><tr><th scope="col">Method</th><th scope="col">Overall validation score</th></tr></thead><tbody><tr><th scope="row">No Retrieval</th><td>0.1988</td></tr><tr><th scope="row">Random</th><td>0.3282</td></tr><tr><th scope="row">BM25</th><td>0.4141</td></tr><tr><th scope="row">Dense Static</th><td>0.4278</td></tr></tbody></table></div>
+    </section>
+
+    <section id="prizes">
+      <h2>Prizes</h2>
+      <p>Six teams are recognised. Placement follows the overall score defined above; runtime and token usage do not affect it.</p>
+      <div class="table-scroll" role="region" aria-label="Prize table" tabindex="0"><table class="prizes-table"><thead><tr><th scope="col">Award</th><th scope="col">Teams</th><th scope="col">Prize per team</th><th scope="col">Total</th></tr></thead><tbody><tr><th scope="row">Gold</th><td>1</td><td>$3,000</td><td>$3,000</td></tr><tr><th scope="row">Silver</th><td>2</td><td>$2,000</td><td>$4,000</td></tr><tr><th scope="row">Bronze</th><td>3</td><td>$1,000</td><td>$3,000</td></tr><tr class="prizes-total"><th scope="row">Total</th><td>6</td><td>&mdash;</td><td>$10,000</td></tr></tbody></table></div>
+      <p>Awards are announced and presented at <a href="https://www.wsdm-conference.org/2027/">ACM WSDM 2027</a>, February 15&ndash;19, 2027, Hong Kong.</p>
+    </section>
+
+    <section id="participation">
+      <h2>Participation</h2>
+      <p>The starter kit provides the environments, trajectory corpora, development tasks, and four reference baselines. Participants can replace the retrieval and guidance method through the shared interface.</p>
+      <p><strong>Use the organizer-provided model configuration for all comparable runs.</strong> The designated model is Qwen3.5-9B, served by Together through OpenRouter, with temperature 0, reasoning disabled and provider fallback disabled. Keep the supplied model settings, agent prompts, tools and execution limits unchanged; use your own API key only for local access. The organizer runs submissions with the same fixed configuration.</p>
+      <ol>
+        <li>Install the starter kit and run the supplied baselines.</li>
+        <li>Implement your method and evaluate it on the development tasks.</li>
+        <li>Submit your method files under algorithms/, with dependencies and setup instructions. The organizer uses a fixed agent, environments and scoring implementation.</li>
+      </ol>
+      <p>The starter runtime defaults to 300 seconds per task, 50 actions and 50 model calls. Methods may combine multiple references; the retrieval baselines use one by default.</p>
+      <ul class="resources"><li><strong>Code and installation guide:</strong> <span class="pending">TBD</span></li><li><strong>Submission portal:</strong> <span class="pending">TBD</span></li><li><strong>Questions and discussion:</strong> <span class="pending">TBD</span></li></ul>
+    </section>
+
+    <section id="dates">
+      <h2>Important Dates</h2>
+      <ol class="timeline">
+        <li>
+          <span class="timeline-date">Nov 17, 2026</span>
+          <h3>Data and starter kit released</h3>
+          <p>Trajectories, development tasks and environment resources are published. Run <code>run.py --check</code> to verify the layout; it makes no model calls.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Nov 17, 2026</span>
+          <h3>Participation opens</h3>
+          <p>Registration opens, and all four baselines run end to end with your own API key.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Nov 17, 2026 &ndash; Feb 5, 2027</span>
+          <h3>Development period</h3>
+          <p>Build your method under <code>algorithms/</code> and measure it on the 50 development tasks of each domain, which are disjoint from the trajectory corpus.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Feb 5, 2027</span>
+          <h3>Submission deadline</h3>
+          <p>Method files and dependency instructions are due. Only what you submit under <code>algorithms/</code> is evaluated.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Feb 2027</span>
+          <h3>Code audit and private-set evaluation</h3>
+          <p>Organizers run the 150 held-out tasks per domain and check each submission for compliance and reproducibility.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Feb 15&ndash;19, 2027</span>
+          <h3>Results and presentations</h3>
+          <p>Ranking is announced at ACM WSDM 2027 in Hong Kong, where the winning teams present.</p>
+        </li>
+      </ol>
+      <p class="note">Dates are provisional. Any change will be posted on this page.</p>
+    </section>
+
+    <section id="team">
+      <h2>Organizers and Contact</h2>
+      <p class="organizer-affiliation">Huawei Technologies, Co., Ltd.</p>
+      <ul class="organizer-list">
+        <li><h3>Zheng Wang</h3><a href="mailto:wangzheng155@huawei.com">wangzheng155@huawei.com</a></li>
+        <li><h3>Cong Wang</h3><a href="mailto:wangcong68@huawei.com">wangcong68@huawei.com</a></li>
+        <li><h3>Didan Deng</h3><a href="mailto:deng.didan@huawei.com">deng.didan@huawei.com</a></li>
+        <li><h3>Jie Wang</h3><a href="mailto:wangjie693@h-partners.com">wangjie693@h-partners.com</a></li>
+        <li><h3>Yangkai Ding</h3><a href="mailto:dingyangkai@huawei.com">dingyangkai@huawei.com</a></li>
+        <li><h3>Qijun Li</h3><a href="mailto:Lee.liqijun@huawei.com">Lee.liqijun@huawei.com</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer><div class="container"><p>Agentic Search · WSDM Cup 2027</p><p class="note">ACM WSDM 2027 · February 15&ndash;19, 2027 · Hong Kong</p></div></footer>
+</body>
+</html>

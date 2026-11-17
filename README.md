@@ -1,35 +1,43 @@
-# WSDM Cup 2027 — Agentic Search
+# WSDM Cup 2027
 
-Official website for the *Agentic Search over Instruction Trajectories* challenge at
-ACM WSDM 2027 (February 15–19, 2027, Hong Kong).
+Website for the WSDM Cup 2027 challenges at ACM WSDM 2027
+(February 15–19, 2027, Hong Kong).
 
-Live at <https://wsdm2027-cup.github.io>.
+| URL | Serves |
+|---|---|
+| <https://wsdm2027-cup.github.io/> | overview page listing the challenges |
+| <https://wsdm2027-cup.github.io/agenticsearch/> | *Agentic Search over Instruction Trajectories* challenge site |
 
 Repository: `wsdm2027-cup/wsdm2027-cup.github.io`. The repository name must match
-`<account>.github.io` exactly, otherwise GitHub publishes it under a sub-path
-instead of the domain root. This site is independent of the *Community Notes*
-WSDM Cup 2027 challenge at <https://wsdmcup2027.github.io>; the two run separate
-schedules and separate leaderboards.
+`<account>.github.io` exactly, otherwise GitHub publishes the site under a
+sub-path and the domain root stays unavailable. Because the root is claimed by
+this repository, each challenge lives in a sub-directory — a plain folder
+`agenticsearch/` is already reachable at `/agenticsearch/`, with no extra
+repository or configuration needed.
 
 ## Structure
 
 ```
-index.html    page content
-styles.css    layout and typography
-site.js       mobile navigation and scroll highlighting
-assets/       locally hosted Montserrat fonts (licences included)
-.nojekyll     serve files as-is, skip Jekyll processing
+index.html                  overview page, links to each challenge
+agenticsearch/
+  index.html                challenge content
+  styles.css                layout and typography
+  site.js                   mobile navigation and scroll highlighting
+  assets/                   locally hosted Montserrat fonts (licences included)
+.nojekyll                   serve files as-is, skip Jekyll processing
 ```
 
-No build step, no backend, no runtime third-party requests. Open `index.html`
-directly in a browser, or preview over HTTP:
+All asset references are relative, so a challenge folder can be renamed, or
+moved to the domain root, without editing any HTML or CSS.
+
+No build step, no backend, no runtime third-party requests. Preview over HTTP:
 
 ```bash
 python -m http.server 8766 --bind 127.0.0.1
 ```
 
-All asset references are relative, so the site works at a domain root and at a
-sub-path without changes.
+Then open <http://127.0.0.1:8766/> for the overview and
+<http://127.0.0.1:8766/agenticsearch/> for the challenge.
 
 ## Publishing
 
@@ -39,11 +47,17 @@ GitHub Pages is served from the `main` branch root:
 2. Settings → Pages → Source: *Deploy from a branch*, branch `main`, folder `/ (root)`.
 3. The site rebuilds roughly a minute after each push.
 
+## Adding a challenge
+
+1. Create a folder named after the URL segment you want, for example `communitynotes/`.
+2. Put its `index.html` inside and keep all references relative.
+3. Add an `<a class="card">` block in the root `index.html` pointing at `communitynotes/`.
+
 ## Custom domain
 
-Add a `CNAME` file containing the bare hostname (for example
-`agentic-search.wsdm2027-cup.org`), create a `CNAME` DNS record pointing at
-`wsdm2027-cup.github.io`, then enable *Enforce HTTPS*.
+Add a `CNAME` file containing the bare hostname, create a `CNAME` DNS record
+pointing at `wsdm2027-cup.github.io`, then enable *Enforce HTTPS*. Paths keep
+working unchanged.
 
 ## Scope
 
