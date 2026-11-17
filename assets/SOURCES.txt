@@ -1,0 +1,7 @@
+Montserrat regular and bold: downloaded from Google Fonts / fonts.gstatic.com.
+Upstream: https://github.com/google/fonts/tree/main/ofl/montserrat
+Copyright and font license notices: FONT-LICENSES.txt.
+
+Information structure inspired by https://wsdmcup-2026.github.io/
+Layout, styles, diagram, and interaction code were written for this project.
+No reference-site images or logos are included.
