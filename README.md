@@ -3,7 +3,13 @@
 Official website for the *Agentic Search over Instruction Trajectories* challenge at
 ACM WSDM 2027 (February 15–19, 2027, Hong Kong).
 
-Live at <https://wsdmcup2027-agenticsearch.github.io>.
+Live at <https://wsdm2027-cup.github.io>.
+
+Repository: `wsdm2027-cup/wsdm2027-cup.github.io`. The repository name must match
+`<account>.github.io` exactly, otherwise GitHub publishes it under a sub-path
+instead of the domain root. This site is independent of the *Community Notes*
+WSDM Cup 2027 challenge at <https://wsdmcup2027.github.io>; the two run separate
+schedules and separate leaderboards.
 
 ## Structure
 
@@ -36,8 +42,8 @@ GitHub Pages is served from the `main` branch root:
 ## Custom domain
 
 Add a `CNAME` file containing the bare hostname (for example
-`agentic-search.wsdmcup2027.org`), create a `CNAME` DNS record pointing at
-`wsdmcup2027-agenticsearch.github.io`, then enable *Enforce HTTPS*.
+`agentic-search.wsdm2027-cup.org`), create a `CNAME` DNS record pointing at
+`wsdm2027-cup.github.io`, then enable *Enforce HTTPS*.
 
 ## Scope
 
