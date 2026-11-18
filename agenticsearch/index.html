@@ -6,7 +6,7 @@
   <meta name="description" content="Agentic Search over Instruction Trajectories — a WSDM Cup 2027 challenge at ACM WSDM 2027, February 15–19, Hong Kong.">
   <meta name="theme-color" content="#eef3f7">
   <title>Agentic Search · WSDM Cup 2027</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script src="site.js" defer></script>
 </head>
 <body id="page-top">
@@ -15,7 +15,7 @@
     <div class="container nav-inner">
       <a class="navbar-brand" href="#page-top">Agentic Search</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Toggle navigation</span><span aria-hidden="true">☰</span></button>
-      <div class="nav-links" id="nav-links"><a href="#overview">Overview</a><a href="#data">Data</a><a href="#evaluation">Evaluation</a><a href="#prizes">Prizes</a><a href="#participation">Participation</a><a href="#dates">Dates</a></div>
+      <div class="nav-links" id="nav-links"><a href="#overview">Overview</a><a href="#prizes">Prizes</a><a href="#data">Data</a><a href="#evaluation">Evaluation</a><a href="#participation">Participation</a><a href="#dates">Dates</a></div>
     </div>
   </nav>
   <header class="hero">
@@ -38,14 +38,38 @@
 
       <h3>Task description</h3>
       <p>Before each model call, your method receives the current task, observation, available actions, and interaction history. It can retrieve, combine, or summarize historical experience and return <strong>guidance</strong>. The fixed agent uses that guidance to choose its next action; the environment executes the action and returns a new observation.</p>
-      <p class="note">An ALFWorld example using a public development task and historical trajectory excerpts. The guidance below is illustrative.</p>
+
+      <div class="pipeline" aria-label="How a submission is used at every agent step">
+        <div class="pipeline-stage">
+          <span class="stage-step">Step 1</span>
+          <h4>Current task</h4>
+          <p>The goal, the observations so far and the actions still available to the agent.</p>
+        </div>
+        <div class="pipeline-link" aria-hidden="true"><svg viewBox="0 0 30 20" width="30" height="20" fill="none"><path d="M1 10h18" stroke="#9db6cb" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M19 5l6 5-6 5" stroke="#245a86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pipeline-stage pipeline-stage--focus">
+          <span class="stage-flag">Your method</span>
+          <span class="stage-step">Step 2 &middot; retrieve</span>
+          <h4>Retrieve a similar trajectory</h4>
+          <p>Search the historical corpus for the past solution that best matches the current task. This is the only step a submission controls.</p>
+        </div>
+        <div class="pipeline-link" aria-hidden="true"><svg viewBox="0 0 30 20" width="30" height="20" fill="none"><path d="M1 10h18" stroke="#9db6cb" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M19 5l6 5-6 5" stroke="#245a86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pipeline-stage">
+          <span class="stage-step">Step 3</span>
+          <h4>Add it to the prompt</h4>
+          <p>The retrieved trajectory is appended to the current context as guidance before the agent picks its next action.</p>
+        </div>
+      </div>
+
+      <p class="pipeline-caption">An ALFWorld example using a public development task and historical trajectory excerpts. The guidance below is illustrative.</p>
+
       <div class="example">
         <div class="example-step">
-          <h4>1. Current task &mdash; heat a tomato and put it in the fridge</h4>
+          <div class="example-head"><span class="chip">1</span><h4>Current task <em>&mdash; heat a tomato and put it in the fridge</em></h4></div>
           <pre class="code">Goal: heat some tomato and put it in fridge.</pre>
         </div>
-        <div class="example-step">
-          <h4>2. Relevant experience &mdash; heating and placing an apple</h4>
+
+        <div class="example-step example-step--focus">
+          <div class="example-head"><span class="chip chip--focus">2</span><h4>Relevant experience <em>&mdash; heating and placing an apple</em></h4></div>
           <pre class="code">Historical goal: heat some apple and put it in countertop.
 
 Selected steps (navigation omitted):
@@ -58,8 +82,9 @@ Observation: You heat the apple 3 using the microwave 1.
 Action: move apple 3 to countertop 1
 Observation: You move the apple 3 to the countertop 1.</pre>
         </div>
+
         <div class="example-step">
-          <h4>3. Guidance &mdash; adapt the procedure to the current task</h4>
+          <div class="example-head"><span class="chip">3</span><h4>Guidance <em>&mdash; adapt the procedure to the current task</em></h4></div>
           <pre class="code">Reuse the procedure: find the target, take it, heat it,
 then place it at the requested destination.
 
@@ -70,6 +95,13 @@ tomato, then put it in the fridge. Do not copy historical
 object numbers or assume the same locations.</pre>
         </div>
       </div>
+    </section>
+
+    <section id="prizes">
+      <h2>Prizes</h2>
+      <p>Six teams are recognised. Placement follows the overall score described under Evaluation; if two teams tie on the mean score, the team with the smaller standard deviation across the three domains is ranked higher.</p>
+      <div class="table-scroll" role="region" aria-label="Prize table" tabindex="0"><table class="prizes-table"><thead><tr><th scope="col">Award</th><th scope="col">Teams</th><th scope="col">Prize per team</th><th scope="col">Total</th></tr></thead><tbody><tr><th scope="row">Gold</th><td>1</td><td>$3,000</td><td>$3,000</td></tr><tr><th scope="row">Silver</th><td>2</td><td>$2,000</td><td>$4,000</td></tr><tr><th scope="row">Bronze</th><td>3</td><td>$1,000</td><td>$3,000</td></tr><tr class="prizes-total"><th scope="row">Total</th><td>6</td><td>&mdash;</td><td>$10,000</td></tr></tbody></table></div>
+      <p>The ranking is announced before the conference, and awards are presented at <a href="https://www.wsdm-conference.org/2027/">ACM WSDM 2027</a>, February 15&ndash;19, 2027, Hong Kong.</p>
     </section>
 
     <section id="data">
@@ -83,8 +115,9 @@ object numbers or assume the same locations.</pre>
       <div class="table-scroll" role="region" aria-label="Dataset release table" tabindex="0"><table><thead><tr><th scope="col">Dataset</th><th scope="col">Trajectories</th><th scope="col">Development tasks</th><th scope="col">Private test tasks</th></tr></thead><tbody><tr><th scope="row">ALFWorld</th><td>1,000</td><td>50</td><td>150</td></tr><tr><th scope="row">WebShop</th><td>1,000</td><td>50</td><td>150</td></tr><tr><th scope="row">HotpotQA</th><td>1,000</td><td>50</td><td>150</td></tr></tbody></table></div>
       <p>The released trajectory corpus will also be provided during hidden-test evaluation. Participants may collect or generate additional trajectories for training and local experimentation.</p>
       <p>The development set is a curated selection covering different task types and difficulty levels. The hidden test set is designed to include more challenging tasks and new combinations of difficulties. Participants are encouraged to create additional tasks of varying difficulty to evaluate their methods.</p>
-      <p><strong>Download data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search-review">Hugging Face</a>. </p>
       <p>Trajectories include a task goal, an initial observation, actions, the observations returned after those actions, stored as action/observation pairs.</p>
+      <p><strong>Download trajectories and development tasks:</strong> <a class="dataset-link" href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search-review">huggingface.co/datasets/agentic-search-review-team/agentic-search-review</a></p>
+      <p class="note">The dataset is gated: sign in with a Hugging Face account and request access, which is approved automatically. It ships as <code>data-resources.zip</code> (about 5.6&nbsp;GB) with a matching <code>SHA256SUMS</code>. The <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#2-download-the-data">download steps</a> in the starter kit README cover fetching, verifying and unpacking it.</p>
     </section>
 
     <section id="evaluation">
@@ -92,7 +125,7 @@ object numbers or assume the same locations.</pre>
       <p>The overall score gives <strong>equal weight to the three domains</strong>. Each domain score is averaged over its tasks:</p>
       <ul><li><strong>ALFWorld:</strong> task success, scored as 0 or 1.</li><li><strong>WebShop:</strong> the environment reward, ranging from 0 to 1.</li><li><strong>HotpotQA:</strong> answer accuracy, scored as 0 or 1.</li></ul>
       <p class="score-formula"><strong>Overall score = (ALFWorld success rate + WebShop mean reward + HotpotQA accuracy) / 3</strong></p>
-      <p>The organizer evaluates the three datasets sequentially and averages their three mean scores. Runtime and token usage do not contribute to the ranking score.</p>
+      <p>The organizer evaluates the three datasets sequentially and averages their three mean scores. If two teams obtain the same mean score, the team with the smaller standard deviation across the three domain scores is ranked higher.</p>
       <h3>Validation baseline results</h3>
       <p>The three retrieval baselines differ only in how they select a reference trajectory; No Retrieval is shown as the no-reference floor.</p>
       <ul>
@@ -103,58 +136,74 @@ object numbers or assume the same locations.</pre>
       <div class="table-scroll" role="region" aria-label="Overall validation baseline results" tabindex="0"><table class="results-table"><thead><tr><th scope="col">Method</th><th scope="col">Overall validation score</th></tr></thead><tbody><tr><th scope="row">No Retrieval</th><td>0.1988</td></tr><tr><th scope="row">Random</th><td>0.3282</td></tr><tr><th scope="row">BM25</th><td>0.4141</td></tr><tr><th scope="row">Dense Static</th><td>0.4278</td></tr></tbody></table></div>
     </section>
 
-    <section id="prizes">
-      <h2>Prizes</h2>
-      <p>Six teams are recognised. Placement follows the overall score defined above; runtime and token usage do not affect it.</p>
-      <div class="table-scroll" role="region" aria-label="Prize table" tabindex="0"><table class="prizes-table"><thead><tr><th scope="col">Award</th><th scope="col">Teams</th><th scope="col">Prize per team</th><th scope="col">Total</th></tr></thead><tbody><tr><th scope="row">Gold</th><td>1</td><td>$3,000</td><td>$3,000</td></tr><tr><th scope="row">Silver</th><td>2</td><td>$2,000</td><td>$4,000</td></tr><tr><th scope="row">Bronze</th><td>3</td><td>$1,000</td><td>$3,000</td></tr><tr class="prizes-total"><th scope="row">Total</th><td>6</td><td>&mdash;</td><td>$10,000</td></tr></tbody></table></div>
-      <p>Awards are announced and presented at <a href="https://www.wsdm-conference.org/2027/">ACM WSDM 2027</a>, February 15&ndash;19, 2027, Hong Kong.</p>
-    </section>
-
     <section id="participation">
       <h2>Participation</h2>
-      <p>The starter kit provides the runtime and four baselines; download the trajectory corpora, development tasks and environment resources separately. One command starts the official and algorithm containers together. Develop your retrieval and guidance method in <code>algorithms/methods/</code>, with dependencies installed in your own algorithm image.</p>
+
+      <div class="registration">
+        <div class="registration-text">
+          <h3>Registration Form</h3>
+          <p>Register your team before Dec 27, 2026. The form link goes here.</p>
+        </div>
+        <span class="registration-tbd">Link TBD</span>
+      </div>
+
       <p><strong>Use the organizer-provided model configuration for all comparable runs.</strong> The designated model is Qwen3.5-9B, served by Together through OpenRouter, with temperature 0, reasoning disabled and provider fallback disabled. Keep the supplied model settings, agent prompts, tools and execution limits unchanged; use your own API key only for local access. The organizer runs submissions with the same fixed configuration.</p>
-      <ol>
-        <li>Follow the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">installation guide</a> to download the data, build both images and run a baseline.</li>
-        <li>Implement your method, rebuild your algorithm image, and evaluate it on the development tasks. The algorithm runs on CPU, with model files prepared in the image for offline use.</li>
-        <li>Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data.</li>
+      <ol class="steps">
+        <li><strong>Register.</strong> Submit the registration form above. Registration closes on Dec 27, 2026, the same day as the first-round submission deadline.</li>
+        <li><strong>Install the starter kit and run a baseline.</strong> Follow the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">installation guide</a> to download the data, build both images and run a baseline. The <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">starter kit</a> provides the runtime and four baselines; download the trajectory corpora, development tasks and environment resources separately. One command starts the official and algorithm containers together. The starter runtime defaults to 300 seconds per task, 50 actions and 50 model calls. Methods may combine multiple references; the retrieval baselines use one by default.</li>
+        <li><strong>Implement your method with a Docker image.</strong> Write your method in <code>algorithms/methods/</code>, rebuild your algorithm image (<a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit/docker">docker/</a>), and evaluate it on the development tasks. The algorithm runs on CPU, with model files prepared in the image for offline use.</li>
+        <li><strong>Export the image and submit it.</strong> Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data. The first-round deadline is Dec 27, 2026; the 15 advancing teams resubmit for the second round by Feb 5, 2027.</li>
       </ol>
-      <p>The starter runtime defaults to 300 seconds per task, 50 actions and 50 model calls. Methods may combine multiple references; the retrieval baselines use one by default.</p>
-      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Submission portal:</strong> <span class="pending">TBD</span></li><li><strong>Questions and discussion:</strong> <span class="pending">TBD</span></li></ul>
+
+      <div class="limit">
+        <h3>Submission limit</h3>
+        <p>Each team has <strong>5 submission attempts in total for the whole competition</strong>. The limit covers both the first round and the second round; advancing to the second round does not reset it.</p>
+      </div>
+      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search-review">Hugging Face dataset</a></li><li><strong>Submission portal:</strong> <span class="pending">opens Nov 30, 2026 &middot; link TBD</span></li><li><strong>Questions and discussion:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/issues">open an issue on GitHub</a></li></ul>
     </section>
 
     <section id="dates">
       <h2>Important Dates</h2>
       <ol class="timeline">
-        <li>
-          <span class="timeline-date">Nov 17, 2026</span>
+        <li class="timeline--past">
+          <span class="timeline-date">Oct 17, 2026</span>
           <h3>Data and starter kit released</h3>
-          <p>Trajectories, development tasks and environment resources are published. Run <code>python3 docker/launch.py check</code> to verify the layout; it makes no model calls.</p>
+          <p>Trajectories, development tasks and environment resources are published.</p>
         </li>
         <li>
-          <span class="timeline-date">Nov 17, 2026</span>
-          <h3>Participation opens</h3>
-          <p>Registration opens, and all four baselines run end to end with your own API key.</p>
+          <span class="timeline-date">Nov 18, 2026</span>
+          <h3>Registration opens</h3>
+          <p>Teams register by filling in the Google Form in the <a href="#participation">Participation</a> section.</p>
         </li>
         <li>
-          <span class="timeline-date">Nov 17, 2026 &ndash; Feb 5, 2027</span>
-          <h3>Development period</h3>
-          <p>Build your method under <code>algorithms/</code> and measure it on the 50 development tasks of each domain, which are disjoint from the trajectory corpus.</p>
+          <span class="timeline-date">Nov 30, 2026</span>
+          <h3>Submission portal opens</h3>
+          <p>The portal accepts user submission from this date. Every submission counts towards the team's five-attempt limit.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Dec 27, 2026</span>
+          <h3>First-round submission deadline &middot; Registration closes</h3>
+          <p>Exported algorithm images, matching source and build files, and submission READMEs for the first round are due. Registration closes on the same day and no new teams are accepted afterwards.</p>
+        </li>
+        <li>
+          <span class="timeline-date">Jan 5, 2027</span>
+          <h3>First-round results published</h3>
+          <p>Scores for the first round are published. The top 15 teams advance to the second round.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 5, 2027</span>
-          <h3>Submission deadline</h3>
-          <p>Exported algorithm images, matching source and build files, and submission READMEs are due. The organizer runs submissions with its own fixed agent, model configuration, environments and scorer.</p>
+          <h3>Second-round submission deadline</h3>
+          <p>Advancing teams submit their final algorithm images and system descriptions. The organizer then runs the 150 held-out tasks per domain and checks each submission for compliance and reproducibility.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 2027</span>
-          <h3>Code audit and private-set evaluation</h3>
-          <p>Organizers run the 150 held-out tasks per domain and check each submission for compliance and reproducibility.</p>
+          <h3>Second-round results published</h3>
+          <p>Final scores are announced before the conference, together with the Gold, Silver and Bronze prize winners.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 15&ndash;19, 2027</span>
-          <h3>Results and presentations</h3>
-          <p>Ranking is announced at ACM WSDM 2027 in Hong Kong, where the winning teams present.</p>
+          <h3>Presentations at ACM WSDM 2027</h3>
+          <p>The winning teams present their methods at ACM WSDM 2027 in Hong Kong.</p>
         </li>
       </ol>
       <p class="note">Dates are provisional. Any change will be posted on this page.</p>
