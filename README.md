@@ -168,22 +168,6 @@ Rules that get submissions rejected:
 Each team gets **5 attempts in total** for the whole competition, counted from Dec 4, 2026 and never
 reset. See [`starter-kit/README.md` §5](starter-kit/README.md#5-submit-your-method) for the checklist.
 
-## Repository layout
-
-```text
-index.html                  overview page listing the WSDM Cup 2027 challenges
-agenticsearch/              challenge site: index.html, styles.css, site.js, assets/
-starter-kit/                participant runtime, baselines, Docker setup, installation guide
-.nojekyll                   serve files as-is, skip Jekyll processing
-```
-
-The website is static — no build step, no backend, no third-party requests at runtime. To preview it
-locally:
-
-```bash
-python -m http.server 8766 --bind 127.0.0.1   # then open http://127.0.0.1:8766/agenticsearch/
-```
-
 ## Organizers and contact
 
 Huawei Technologies, Co., Ltd. — Zheng Wang, Cong Wang, Didan Deng, Jie Wang, Yangkai Ding, Qijun Li.
