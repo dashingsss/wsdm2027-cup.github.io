@@ -107,9 +107,13 @@ code{font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:va
 .organizer-list a{font-size:14px;line-height:1.6;overflow-wrap:anywhere}
 @media(max-width:767px){.organizer-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 18px}}
 @media(max-width:480px){.organizer-list{grid-template-columns:1fr}}
-footer{text-align:center;background:var(--pale);border-top:1px solid var(--line);padding:30px 0;font-size:16px}
+footer{text-align:center;background:var(--pale);border-top:1px solid var(--line);padding:32px 0 30px;font-size:16px}
 footer p{margin:0}
 footer .note{font-size:14px;margin-top:4px}
+.footer-contact{font-size:15px;color:var(--muted);margin:0 0 18px;line-height:2.7}
+.footer-contact a{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 15px 3px 13px;margin:0 1px;font-size:15px;font-weight:700;color:var(--blue);transition:border-color .18s,box-shadow .18s,transform .18s}
+.footer-contact a:hover{text-decoration:none;border-color:#b9cddc;box-shadow:0 2px 10px #20364d16;transform:translateY(-1px)}
+.footer-contact svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .skip-link{position:fixed;left:12px;top:-100px;z-index:50;background:white;padding:10px}
 .skip-link:focus{top:12px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}

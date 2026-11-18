@@ -6,7 +6,7 @@
   <meta name="description" content="Agentic Search over Instruction Trajectories — a WSDM Cup 2027 challenge at ACM WSDM 2027, February 15–19, Hong Kong.">
   <meta name="theme-color" content="#eef3f7">
   <title>Agentic Search · WSDM Cup 2027</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <script src="site.js" defer></script>
 </head>
 <body id="page-top">
@@ -152,14 +152,14 @@ object numbers or assume the same locations.</pre>
         <li><strong>Register.</strong> Submit the registration form above. Registration closes on Feb 5, 2027, the same day as the submission deadline.</li>
         <li><strong>Install the starter kit and run a baseline.</strong> Follow the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">installation guide</a> to download the data, build both images and run a baseline. The <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">starter kit</a> provides the runtime and four baselines; download the trajectory corpora, development tasks and environment resources separately. One command starts the official and algorithm containers together. The starter runtime defaults to 300 seconds per task, 50 actions and 50 model calls. Methods may combine multiple references; the retrieval baselines use one by default.</li>
         <li><strong>Implement your method with a Docker image.</strong> Write your method in <code>algorithms/methods/</code>, rebuild your algorithm image (<a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit/docker">docker/</a>), and evaluate it on the development tasks. The algorithm runs on CPU, with model files prepared in the image for offline use.</li>
-        <li><strong>Export the image and submit it.</strong> Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data. The submission deadline is Feb 5, 2027; interim scores are published on Jan 5, 2027.</li>
+        <li><strong>Export the image and submit it.</strong> Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data. The submission portal opens on Dec 4, 2026, and the final submission deadline is Feb 5, 2027.</li>
       </ol>
 
       <div class="limit">
         <h3>Submission limit</h3>
         <p>Each team has <strong>5 submission attempts in total for the whole competition</strong>. The limit runs from the portal opening on Dec 4, 2026 to the final deadline and is never reset.</p>
       </div>
-      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search">Hugging Face dataset</a></li><li><strong>Submission portal:</strong> <span class="pending">opens Dec 4, 2026 &middot; link TBD</span></li><li><strong>Questions and discussion:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/issues">open an issue on GitHub</a></li></ul>
+      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search">Hugging Face dataset</a></li><li><strong>Submission portal:</strong> <span class="pending">opens Dec 4, 2026 &middot; link TBD</span></li><li><strong>Questions and discussion:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/issues">open an issue on GitHub</a> or email <a href="mailto:wsdm_cup_2027@163.com">wsdm_cup_2027@163.com</a></li></ul>
     </section>
 
     <section id="dates">
@@ -188,7 +188,7 @@ object numbers or assume the same locations.</pre>
         <li>
           <span class="timeline-date">Feb 5, 2027</span>
           <h3>Submission deadline &middot; Registration closes</h3>
-          <p>Exported algorithm images, matching source and build files, and submission READMEs are due. Registration closes on the same day. The organizer then evaluates every submission on the 150 held-out tasks per domain and checks it for compliance and reproducibility.</p>
+          <p>Exported algorithm images, matching source and build files, and submission READMEs are due. Registration closes on the same day.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 2027</span>
@@ -217,6 +217,12 @@ object numbers or assume the same locations.</pre>
       </ul>
     </section>
   </main>
-  <footer><div class="container"><p>Agentic Search · WSDM Cup 2027</p><p class="note">ACM WSDM 2027 · February 15&ndash;19, 2027 · Hong Kong</p></div></footer>
+  <footer>
+    <div class="container">
+      <p class="footer-contact">For any question about the challenge, write to <a href="mailto:wsdm_cup_2027@163.com"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2.6" y="5" width="18.8" height="14" rx="2.4"/><path d="M3.4 6.6 12 12.9l8.6-6.3"/></svg>wsdm_cup_2027@163.com</a></p>
+      <p>Agentic Search · WSDM Cup 2027</p>
+      <p class="note">ACM WSDM 2027 · February 15&ndash;19, 2027 · Hong Kong</p>
+    </div>
+  </footer>
 </body>
 </html>
