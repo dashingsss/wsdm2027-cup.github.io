@@ -4,4 +4,17 @@ Copyright and font license notices: FONT-LICENSES.txt.
 
 Information structure inspired by https://wsdmcup-2026.github.io/
 Layout, styles, diagram, and interaction code were written for this project.
-No reference-site images or logos are included.
+
+Logos
+huawei-logo.svg
+  Flower mark and HUAWEI wordmark taken from the official logo published on huawei.com
+  (/-/media/htemplate-home/.../assets/img/favicon-logo.svg), combined into a single horizontal
+  lockup so both parts share one baseline. Trademark of Huawei Technologies Co., Ltd.; used here
+  to identify the organizer.
+
+openjiuwen-logo.png
+  Mark downloaded from openjiuwen.com (img/jiuwen_logo.png). The community publishes no vector
+  version, so the PNG is used at 26 px height (about 3.5x). Trademark of the openJiuwen community.
+
+wsdm-2027.svg
+  Project artwork for the challenge lockup (owl mark plus WSDM 2027 wordmark).

@@ -15,6 +15,30 @@ a:focus-visible,button:focus-visible,.table-scroll:focus-visible{outline:3px sol
 strong{color:var(--ink)}
 .container{width:940px;max-width:calc(100% - 48px);margin:0 auto}
 .navbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+/* Conference logo at the top of the hero */
+.hero-logo{display:inline-block;margin:0 0 20px;opacity:.9;transition:opacity .18s ease}
+.hero-logo:hover,.hero-logo:focus-visible{opacity:1;text-decoration:none}
+.hero-logo img{display:block;height:46px;width:auto}
+/* Organizer logos at the base of the hero */
+.hero-organizers{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin:44px auto 0;padding-top:26px;max-width:520px;border-top:1px solid var(--line)}
+.hero-organizers-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b9aa8}
+.brand{display:inline-flex;align-items:center;gap:9px;opacity:.9;transition:opacity .18s ease}
+.brand:hover,.brand:focus-visible{opacity:1;text-decoration:none}
+.brand img{display:block;width:auto}
+.brand-huawei img{height:23px}
+.brand-jiuwen img{height:25px}
+.brand-jiuwen span{font:700 15.5px/1 Montserrat,Arial,sans-serif;color:#0f0e2b;letter-spacing:-.2px}
+.brand-sep{width:1px;height:22px;background:#c8d6e1}
+@media(max-width:560px){
+  .hero-logo{margin-bottom:16px}
+  .hero-logo img{height:34px}
+  .hero-organizers{margin-top:34px;padding-top:22px;gap:16px}
+  .hero-organizers-label{font-size:11px}
+  .brand-huawei img{height:18px}
+  .brand-jiuwen img{height:20px}
+  .brand-jiuwen span{font-size:13.5px;letter-spacing:0}
+  .brand-sep{display:none}
+}
 .nav-inner{display:flex;justify-content:space-between;align-items:center;min-height:76px;gap:25px}
 .navbar-brand{font-size:20px;font-weight:700;white-space:nowrap;color:var(--ink)}
 .navbar-brand:hover{text-decoration:none}
