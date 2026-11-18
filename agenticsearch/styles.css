@@ -84,6 +84,7 @@ code{font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:va
 .registration{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:#f5f8fb;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;padding:22px 26px;margin:0 0 30px}
 .registration-text h3{font-family:Montserrat,Arial,sans-serif;font-size:23px;letter-spacing:-.3px;margin:0 0 4px;color:var(--ink)}
 .registration-text p{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.registration .button{font-size:16px;padding:12px 24px;white-space:nowrap}
 .registration-tbd{display:inline-block;border:1px dashed #c3d2de;border-radius:4px;padding:12px 26px;font-size:15px;font-weight:700;letter-spacing:.04em;color:#a64b16;background:#fff}
 .limit{background:#fdf8f2;border:1px solid #ecdcc8;border-left:4px solid #c07a2f;border-radius:4px;padding:18px 24px 20px;margin:0 0 30px}
 .limit h3{font-family:Montserrat,Arial,sans-serif;font-size:17px;letter-spacing:.02em;margin:0 0 8px;color:#8a4f1b}
