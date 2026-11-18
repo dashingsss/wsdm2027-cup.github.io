@@ -1,0 +1,24 @@
+# Shared runtime settings. Keep API credentials in the environment.
+model:
+  provider: OpenRouter
+  base_url: https://openrouter.ai/api/v1
+  name: qwen/qwen3.5-9b
+  temperature: 0.0
+  max_tokens: 2048
+  reasoning: disabled
+  request_timeout_seconds: 120
+  provider_order:
+  - together
+  allow_fallbacks: false
+  api_key_env: OPENROUTER_API_KEY
+algorithm:
+  endpoint: http://algorithm:8765
+  options: {}
+data:
+  seed: 42
+limits:
+  max_actions: 50
+  max_model_calls: 50
+  episode_timeout_seconds: 300
+output:
+  directory: results

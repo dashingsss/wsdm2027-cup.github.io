@@ -37,36 +37,37 @@
       <p>The challenge covers <strong>ALFWorld, WebShop, and HotpotQA</strong>. All methods use the same agent framework, designated model configuration, and environment tools. Methods may build and reuse indexes over the public trajectory corpus within each domain.</p>
 
       <h3>Task description</h3>
-      <p>A method never chooses an action. Before every model call the fixed agent hands it the <strong>current task</strong>; the method looks up a similar past <strong>trajectory</strong> and returns it as <strong>guidance</strong>, the only text it can add to the agent's prompt.</p>
-
+      <p>Before each model call, your method receives the current task, observation, available actions, and interaction history. It can retrieve, combine, or summarize historical experience and return <strong>guidance</strong>. The fixed agent uses that guidance to choose its next action; the environment executes the action and returns a new observation.</p>
+      <p class="note">An ALFWorld example using a public development task and historical trajectory excerpts. The guidance below is illustrative.</p>
       <div class="example">
         <div class="example-step">
-          <h4>1. Current task &mdash; what the agent has to solve</h4>
-          <pre class="code">Goal: Which long-established US university is older:
-      University of California, Berkeley or Syracuse University?</pre>
+          <h4>1. Current task &mdash; heat a tomato and put it in the fridge</h4>
+          <pre class="code">Goal: heat some tomato and put it in fridge.</pre>
         </div>
-
         <div class="example-step">
-          <h4>2. Retrieved trajectory &mdash; a worked example the method finds</h4>
-          <pre class="code">Goal: Between the Sabal and the Liatris, which genus of plant
-      produces a fruit called drupe?
-1. search[Sabal]       top hit is a bass-guitarist of the same name
-2. read[b350c53b...]   "Sabal is a genus of palms ... The fruit is a drupe."
-3. finish[Sabal]       Answer submitted.</pre>
+          <h4>2. Relevant experience &mdash; heating and placing an apple</h4>
+          <pre class="code">Historical goal: heat some apple and put it in countertop.
+
+Selected steps (navigation omitted):
+Action: take apple 3 from countertop 3
+Observation: You pick up the apple 3 from the countertop 3.
+
+Action: heat apple 3 with microwave 1
+Observation: You heat the apple 3 using the microwave 1.
+
+Action: move apple 3 to countertop 1
+Observation: You move the apple 3 to the countertop 1.</pre>
         </div>
-
         <div class="example-step">
-          <h4>3. Guidance returned &mdash; the text the agent reads next</h4>
-          <pre class="code">Follow the current task goal and real observations. Historical examples are
-advice only: adapt their objects, IDs and actions to the current task.
+          <h4>3. Guidance &mdash; adapt the procedure to the current task</h4>
+          <pre class="code">Reuse the procedure: find the target, take it, heat it,
+then place it at the requested destination.
 
-Historical example goal: Between the Sabal and the Liatris, ...
-1. Action: search[Sabal]
-   Historical return: [{"title": "Armand Sabal-Lecco", ...}, ...]
-2. Action: read[b350c53b...]
-   Historical return: {"title": "Sabal", "text": "... The fruit is a drupe."}
-3. Action: finish[Sabal]
-   Historical return: Answer submitted.</pre>
+This task requires a tomato and a fridge, not an apple
+and a countertop. Use current observations and available
+actions to find the tomato and the microwave, heat the
+tomato, then put it in the fridge. Do not copy historical
+object numbers or assume the same locations.</pre>
         </div>
       </div>
     </section>
@@ -80,7 +81,9 @@ Historical example goal: Between the Sabal and the Liatris, ...
         <li><strong>HotpotQA:</strong> multi-hop questions that require searching documents and connecting evidence to produce an answer.</li>
       </ul>
       <div class="table-scroll" role="region" aria-label="Dataset release table" tabindex="0"><table><thead><tr><th scope="col">Dataset</th><th scope="col">Trajectories</th><th scope="col">Development tasks</th><th scope="col">Private test tasks</th></tr></thead><tbody><tr><th scope="row">ALFWorld</th><td>1,000</td><td>50</td><td>150</td></tr><tr><th scope="row">WebShop</th><td>1,000</td><td>50</td><td>150</td></tr><tr><th scope="row">HotpotQA</th><td>1,000</td><td>50</td><td>150</td></tr></tbody></table></div>
-      <p><strong>Download data:</strong> <span class="pending">TBD</span></p>
+      <p>The released trajectory corpus will also be provided during hidden-test evaluation. Participants may collect or generate additional trajectories for training and local experimentation.</p>
+      <p>The development set is a curated selection covering different task types and difficulty levels. The hidden test set is designed to include more challenging tasks and new combinations of difficulties. Participants are encouraged to create additional tasks of varying difficulty to evaluate their methods.</p>
+      <p><strong>Download data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search-review">Hugging Face</a>. </p>
       <p>Trajectories include a task goal, an initial observation, actions, the observations returned after those actions, stored as action/observation pairs.</p>
     </section>
 
@@ -109,15 +112,15 @@ Historical example goal: Between the Sabal and the Liatris, ...
 
     <section id="participation">
       <h2>Participation</h2>
-      <p>The starter kit provides the environments, trajectory corpora, development tasks, and four reference baselines. Participants can replace the retrieval and guidance method through the shared interface.</p>
+      <p>The starter kit provides the runtime and four baselines; download the trajectory corpora, development tasks and environment resources separately. One command starts the official and algorithm containers together. Develop your retrieval and guidance method in <code>algorithms/methods/</code>, with dependencies installed in your own algorithm image.</p>
       <p><strong>Use the organizer-provided model configuration for all comparable runs.</strong> The designated model is Qwen3.5-9B, served by Together through OpenRouter, with temperature 0, reasoning disabled and provider fallback disabled. Keep the supplied model settings, agent prompts, tools and execution limits unchanged; use your own API key only for local access. The organizer runs submissions with the same fixed configuration.</p>
       <ol>
-        <li>Install the starter kit and run the supplied baselines.</li>
-        <li>Implement your method and evaluate it on the development tasks.</li>
-        <li>Submit your method files under algorithms/, with dependencies and setup instructions. The organizer uses a fixed agent, environments and scoring implementation.</li>
+        <li>Follow the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">installation guide</a> to download the data, build both images and run a baseline.</li>
+        <li>Implement your method, rebuild your algorithm image, and evaluate it on the development tasks. The algorithm runs on CPU, with model files prepared in the image for offline use.</li>
+        <li>Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data.</li>
       </ol>
       <p>The starter runtime defaults to 300 seconds per task, 50 actions and 50 model calls. Methods may combine multiple references; the retrieval baselines use one by default.</p>
-      <ul class="resources"><li><strong>Code and installation guide:</strong> <span class="pending">TBD</span></li><li><strong>Submission portal:</strong> <span class="pending">TBD</span></li><li><strong>Questions and discussion:</strong> <span class="pending">TBD</span></li></ul>
+      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Submission portal:</strong> <span class="pending">TBD</span></li><li><strong>Questions and discussion:</strong> <span class="pending">TBD</span></li></ul>
     </section>
 
     <section id="dates">
@@ -126,7 +129,7 @@ Historical example goal: Between the Sabal and the Liatris, ...
         <li>
           <span class="timeline-date">Nov 17, 2026</span>
           <h3>Data and starter kit released</h3>
-          <p>Trajectories, development tasks and environment resources are published. Run <code>run.py --check</code> to verify the layout; it makes no model calls.</p>
+          <p>Trajectories, development tasks and environment resources are published. Run <code>python3 docker/launch.py check</code> to verify the layout; it makes no model calls.</p>
         </li>
         <li>
           <span class="timeline-date">Nov 17, 2026</span>
@@ -141,7 +144,7 @@ Historical example goal: Between the Sabal and the Liatris, ...
         <li>
           <span class="timeline-date">Feb 5, 2027</span>
           <h3>Submission deadline</h3>
-          <p>Method files and dependency instructions are due. Only what you submit under <code>algorithms/</code> is evaluated.</p>
+          <p>Exported algorithm images, matching source and build files, and submission READMEs are due. The organizer runs submissions with its own fixed agent, model configuration, environments and scorer.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 2027</span>

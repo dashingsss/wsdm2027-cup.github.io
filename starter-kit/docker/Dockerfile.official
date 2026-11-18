@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+FROM eclipse-temurin:11-jdk-jammy AS java
+FROM python:3.11.13-slim-bookworm
+COPY --from=java /opt/java/openjdk /opt/java/openjdk
+ENV JAVA_HOME=/opt/java/openjdk PATH=/opt/java/openjdk/bin:$PATH \
+    PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 HOME=/tmp \
+    HF_HOME=/tmp/huggingface TOKENIZERS_PARALLELISM=false
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential cmake git curl pkg-config libffi-dev libgomp1 zlib1g-dev libfreetype6 fontconfig \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY docker/install_sources.py docker/source-lock.json /opt/source-setup/
+RUN python /opt/source-setup/install_sources.py --destination /app/third_party
+COPY requirements.txt ./
+RUN python -m pip install --no-cache-dir -r requirements.txt && python -m pip check
+# Explicit copies: no data, credentials, archive, participant methods or GT.
+COPY run.py config.yaml ./
+COPY environments/ environments/
+COPY algorithms/base.py algorithms/protocol.py algorithms/
+RUN touch algorithms/__init__.py
+RUN useradd --uid 10001 --create-home evaluator
+USER 10001:10001
+CMD ["python", "run.py", "--help"]

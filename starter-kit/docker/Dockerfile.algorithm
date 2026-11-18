@@ -1,0 +1,14 @@
+# syntax=docker/dockerfile:1
+FROM python:3.11.13-slim-bookworm
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 HOME=/tmp \
+    HF_HOME=/opt/models/huggingface HF_HUB_OFFLINE=1 \
+    TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+WORKDIR /app
+COPY docker/requirements.algorithm.txt /tmp/requirements.algorithm.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements.algorithm.txt && python -m pip check
+COPY algorithms/ algorithms/
+# Download public baseline weights at build time, never during hidden evaluation.
+RUN HF_HUB_OFFLINE=0 python -c "from huggingface_hub import snapshot_download; snapshot_download('BAAI/bge-small-en-v1.5', revision='5c38ec7c405ec4b44b94cc5a9bb96e735b38267a', allow_patterns=['onnx/model.onnx','tokenizer.json'])"
+RUN useradd --uid 10002 --create-home participant && chmod -R a+rX /opt/models
+USER 10002:10002
+CMD ["python", "-m", "algorithms.service"]
