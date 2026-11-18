@@ -168,21 +168,6 @@ Rules that get submissions rejected:
 Each team gets **5 attempts in total** for the whole competition, counted from Dec 4, 2026 and never
 reset. See [`starter-kit/README.md` §5](starter-kit/README.md#5-submit-your-method) for the checklist.
 
-## Common questions
-
-**Do I need a GPU or an API key?** No GPU. Locally you need your own OpenRouter key so the official
-agent container can call Qwen3.5-9B while you iterate; the organizers supply the model configuration
-when they evaluate your submission, so no key ever goes in the image.
-
-**Can I change the model, the prompt template or the tools?** No. The agent, its prompt, its tools and
-its limits are fixed so that scores compare retrieval quality only.
-
-**Can I train or fine-tune my own model?** Yes, as long as it runs on CPU, offline, and is included in
-the image. Training data and model weights you add are your responsibility.
-
-**Are all three domains mandatory?** Your score is the average of the three domain means, so a weak
-domain drags the overall score down; there is no partial-domain submission.
-
 ## Repository layout
 
 ```text
