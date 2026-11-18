@@ -48,15 +48,15 @@
         <div class="pipeline-link" aria-hidden="true"><svg viewBox="0 0 30 20" width="30" height="20" fill="none"><path d="M1 10h18" stroke="#9db6cb" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M19 5l6 5-6 5" stroke="#245a86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="pipeline-stage pipeline-stage--focus">
           <span class="stage-flag">Your method</span>
-          <span class="stage-step">Step 2 &middot; retrieve</span>
-          <h4>Retrieve a similar trajectory</h4>
-          <p>Search the historical corpus for the past solution that best matches the current task. This is the only step a submission controls.</p>
+          <span class="stage-step">Step 2 &middot; retrieve and adapt</span>
+          <h4>Retrieve and adapt historical experience</h4>
+          <p>Your method retrieves relevant historical trajectories and may combine, summarize or adapt them into guidance for the current task. This is the only step a submission controls.</p>
         </div>
         <div class="pipeline-link" aria-hidden="true"><svg viewBox="0 0 30 20" width="30" height="20" fill="none"><path d="M1 10h18" stroke="#9db6cb" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M19 5l6 5-6 5" stroke="#245a86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="pipeline-stage">
           <span class="stage-step">Step 3</span>
-          <h4>Add it to the prompt</h4>
-          <p>The retrieved trajectory is appended to the current context as guidance before the agent picks its next action.</p>
+          <h4>Add the guidance to the prompt</h4>
+          <p>The official agent adds the guidance returned by your method to its current context before choosing the next action.</p>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ object numbers or assume the same locations.</pre>
       <p>The released trajectory corpus will also be provided during hidden-test evaluation. Participants may collect or generate additional trajectories for training and local experimentation.</p>
       <p>The development set is a curated selection covering different task types and difficulty levels. The hidden test set is designed to include more challenging tasks and new combinations of difficulties. Participants are encouraged to create additional tasks of varying difficulty to evaluate their methods.</p>
       <p>Trajectories include a task goal, an initial observation, actions, the observations returned after those actions, stored as action/observation pairs.</p>
-      <p><strong>Download trajectories and development tasks:</strong> <a class="dataset-link" href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search-review">huggingface.co/datasets/agentic-search-review-team/agentic-search-review</a></p>
+      <p><strong>Download trajectories and development tasks:</strong> <a class="dataset-link" href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search">huggingface.co/datasets/agentic-search-review-team/agentic-search</a></p>
       <p class="note">The dataset is gated: sign in with a Hugging Face account and request access, which is approved automatically. It ships as <code>data-resources.zip</code> (about 5.6&nbsp;GB) with a matching <code>SHA256SUMS</code>. The <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#2-download-the-data">download steps</a> in the starter kit README cover fetching, verifying and unpacking it.</p>
     </section>
 
@@ -142,24 +142,24 @@ object numbers or assume the same locations.</pre>
       <div class="registration">
         <div class="registration-text">
           <h3>Registration Form</h3>
-          <p>Register your team before Dec 27, 2026. The form link goes here.</p>
+          <p>Register your team before Feb 5, 2027. The form link goes here.</p>
         </div>
         <span class="registration-tbd">Link TBD</span>
       </div>
 
       <p><strong>Use the organizer-provided model configuration for all comparable runs.</strong> The designated model is Qwen3.5-9B, served by Together through OpenRouter, with temperature 0, reasoning disabled and provider fallback disabled. Keep the supplied model settings, agent prompts, tools and execution limits unchanged; use your own API key only for local access. The organizer runs submissions with the same fixed configuration.</p>
       <ol class="steps">
-        <li><strong>Register.</strong> Submit the registration form above. Registration closes on Dec 27, 2026, the same day as the first-round submission deadline.</li>
+        <li><strong>Register.</strong> Submit the registration form above. Registration closes on Feb 5, 2027, the same day as the submission deadline.</li>
         <li><strong>Install the starter kit and run a baseline.</strong> Follow the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">installation guide</a> to download the data, build both images and run a baseline. The <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">starter kit</a> provides the runtime and four baselines; download the trajectory corpora, development tasks and environment resources separately. One command starts the official and algorithm containers together. The starter runtime defaults to 300 seconds per task, 50 actions and 50 model calls. Methods may combine multiple references; the retrieval baselines use one by default.</li>
         <li><strong>Implement your method with a Docker image.</strong> Write your method in <code>algorithms/methods/</code>, rebuild your algorithm image (<a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit/docker">docker/</a>), and evaluate it on the development tasks. The algorithm runs on CPU, with model files prepared in the image for offline use.</li>
-        <li><strong>Export the image and submit it.</strong> Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data. The first-round deadline is Dec 27, 2026; the 15 advancing teams resubmit for the second round by Feb 5, 2027.</li>
+        <li><strong>Export the image and submit it.</strong> Submit the exported algorithm image (<code>algorithm-image.tar</code>), matching source code and Docker build files. Include a README with the image tag, method path (such as <code>algorithms/methods/my_method.py</code>) and any additional model details. See the <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit#5-submit-your-method">submission checklist</a>. Do not submit API keys or benchmark data. The submission deadline is Feb 5, 2027; interim scores are published on Jan 5, 2027.</li>
       </ol>
 
       <div class="limit">
         <h3>Submission limit</h3>
-        <p>Each team has <strong>5 submission attempts in total for the whole competition</strong>. The limit covers both the first round and the second round; advancing to the second round does not reset it.</p>
+        <p>Each team has <strong>5 submission attempts in total for the whole competition</strong>. The limit runs from the portal opening on Dec 4, 2026 to the final deadline and is never reset.</p>
       </div>
-      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search-review">Hugging Face dataset</a></li><li><strong>Submission portal:</strong> <span class="pending">opens Nov 30, 2026 &middot; link TBD</span></li><li><strong>Questions and discussion:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/issues">open an issue on GitHub</a></li></ul>
+      <ul class="resources"><li><strong>Code and installation guide:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/tree/main/starter-kit">GitHub starter kit</a></li><li><strong>Data:</strong> <a href="https://huggingface.co/datasets/agentic-search-review-team/agentic-search">Hugging Face dataset</a></li><li><strong>Submission portal:</strong> <span class="pending">opens Dec 4, 2026 &middot; link TBD</span></li><li><strong>Questions and discussion:</strong> <a href="https://github.com/wsdm2027-cup/wsdm2027-cup.github.io/issues">open an issue on GitHub</a></li></ul>
     </section>
 
     <section id="dates">
@@ -176,28 +176,23 @@ object numbers or assume the same locations.</pre>
           <p>Teams register by filling in the Google Form in the <a href="#participation">Participation</a> section.</p>
         </li>
         <li>
-          <span class="timeline-date">Nov 30, 2026</span>
+          <span class="timeline-date">Dec 4, 2026</span>
           <h3>Submission portal opens</h3>
           <p>The portal accepts user submission from this date. Every submission counts towards the team's five-attempt limit.</p>
         </li>
         <li>
-          <span class="timeline-date">Dec 27, 2026</span>
-          <h3>First-round submission deadline &middot; Registration closes</h3>
-          <p>Exported algorithm images, matching source and build files, and submission READMEs for the first round are due. Registration closes on the same day and no new teams are accepted afterwards.</p>
-        </li>
-        <li>
           <span class="timeline-date">Jan 5, 2027</span>
-          <h3>First-round results published</h3>
-          <p>Scores for the first round are published. The top 15 teams advance to the second round.</p>
+          <h3>Mid-term results published</h3>
+          <p>Scores on the private test set for every registered team are published. This is an interim announcement; the final ranking is decided after the submission deadline.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 5, 2027</span>
-          <h3>Second-round submission deadline</h3>
-          <p>Advancing teams submit their final algorithm images and system descriptions. The organizer then runs the 150 held-out tasks per domain and checks each submission for compliance and reproducibility.</p>
+          <h3>Submission deadline &middot; Registration closes</h3>
+          <p>Exported algorithm images, matching source and build files, and submission READMEs are due. Registration closes on the same day. The organizer then evaluates every submission on the 150 held-out tasks per domain and checks it for compliance and reproducibility.</p>
         </li>
         <li>
           <span class="timeline-date">Feb 2027</span>
-          <h3>Second-round results published</h3>
+          <h3>Final results published</h3>
           <p>Final scores are announced before the conference, together with the Gold, Silver and Bronze prize winners.</p>
         </li>
         <li>
