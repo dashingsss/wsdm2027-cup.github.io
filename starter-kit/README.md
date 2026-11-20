@@ -34,7 +34,7 @@ python3 docker/launch.py check
 
 The launcher manages both containers: one for the official agent and environments, one for your algorithm. Builds need Internet access; `check` checks the data without calling the model.
 
-Fill in `model.base_url` and `model.name` in `config.yaml`. Use an OpenAI-compatible Chat Completions API with tool calling and non-streaming support; keep `provider: OpenAI`. Organizers use their own configuration for evaluation.
+The default benchmark model is **Qwen3.5-9B**. Fill in `model.base_url` and your provider's exact model ID in `model.name`; examples are in `config.yaml`. Use an OpenAI-compatible Chat Completions API with tool calling and non-streaming support; keep `provider: OpenAI`. Organizers use their own configuration for evaluation.
 
 Official evaluation uses the model with thinking mode disabled. Disable it for comparable local runs using your provider's documented settings.
 

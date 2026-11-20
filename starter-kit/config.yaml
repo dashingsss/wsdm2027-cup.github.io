@@ -3,9 +3,13 @@
 # Fill in base_url and name before running tasks. OpenAI denotes the compatible
 # Chat Completions protocol, not a required vendor. Keep credentials outside YAML.
 model:
-  provider: OpenAI
+  # Benchmark model: Qwen3.5-9B. API model IDs can differ between providers.
+  provider: OpenAI  # Compatible protocol, including OpenRouter and DashScope APIs.
+  # OpenRouter: https://openrouter.ai/api/v1
+  # DashScope (Beijing): https://dashscope.aliyuncs.com/compatible-mode/v1
+  # Use the endpoint for your key's region; confirm model availability there.
   base_url: ""
-  name: ""
+  name: ""  # OpenRouter: qwen/qwen3.5-9b; elsewhere use your provider's exact ID.
   temperature: 0.0
   max_tokens: 2048
   request_timeout_seconds: 120
