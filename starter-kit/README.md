@@ -36,6 +36,8 @@ The launcher manages both containers: one for the official agent and environment
 
 Fill in `model.base_url` and `model.name` in `config.yaml`. Use an OpenAI-compatible Chat Completions API with tool calling and non-streaming support; keep `provider: OpenAI`. Organizers use their own configuration for evaluation.
 
+Official evaluation uses the model with thinking mode disabled. Disable it for comparable local runs using your provider's documented settings.
+
 Set your key in Bash, then run BM25 on the 50 ALFWorld development tasks:
 
 ```bash
