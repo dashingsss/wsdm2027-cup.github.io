@@ -34,9 +34,7 @@ python3 docker/launch.py check
 
 The launcher manages both containers: one for the official agent and environments, one for your algorithm. Builds need Internet access; `check` checks the data without calling the model.
 
-Before running tasks, fill in `model.base_url` and `model.name` in `config.yaml` using your provider's API address and model ID. They are intentionally blank. `provider: OpenAI` selects the OpenAI-compatible Chat Completions protocol, not a required vendor. Choose a model that supports tool calling and non-streaming responses.
-
-Keep `extra_body: {}` unless your service requires additional parameters. For models that support disabling thinking and require it for non-streaming calls, use `extra_body: {enable_thinking: false}`. Use the parameter names documented by your service.
+Fill in `model.base_url` and `model.name` in `config.yaml`. Use an OpenAI-compatible Chat Completions API with tool calling and non-streaming support; keep `provider: OpenAI`. Organizers use their own configuration for evaluation.
 
 Set your key in Bash, then run BM25 on the 50 ALFWorld development tasks:
 
@@ -46,7 +44,7 @@ export MODEL_API_KEY
 python3 docker/launch.py run --dataset alfworld --method algorithms/baselines/bm25.py
 ```
 
-You can instead set `MODEL_API_KEY_FILE` to a file containing the key. Never put keys in YAML, source code or images. Only the official container receives the configuration and key. Configuration changes apply on the next launch without rebuilding images; `--config /path/to/config.yaml` selects another file. Organizers use their own configuration for evaluation; your submission stays the same.
+Configuration changes take effect on the next run without rebuilding the images. Never include API keys in your submission.
 
 Choose `alfworld`, `webshop`, `hotpotqa` or `all` (all 150 development tasks). Other baselines in `algorithms/baselines/` are `no_retrieval.py`, `random.py` and `dense_static.py`.
 
